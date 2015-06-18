@@ -20,7 +20,8 @@ namespace VNextDemo
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<BookContext>(options =>
-                    options.UseSqlServer("Data Source=.;Initial Catalog=VNextDemo;Integrated Security=True;"));
+                    options
+                    .UseSqlServer("connstr"));
 
             services.AddSwagger(s => {
                 s.SwaggerGenerator(c => {

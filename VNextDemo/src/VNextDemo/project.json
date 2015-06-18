@@ -3,6 +3,7 @@
   "version": "1.0.0-*",
 
   "dependencies": {
+    "Kestrel": "1.0.0-beta4",
     "Swashbuckle": "6.0.0-beta1",
     "System.Reflection": "4.0.10-beta-22821",
     "System.Xml.XPath.XmlDocument": "4.0.0-beta-22821",
@@ -19,6 +20,7 @@
 
   "commands": {
     "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",
+    "kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:5000",
     "ef": "EntityFramework.Commands"
   },
 
