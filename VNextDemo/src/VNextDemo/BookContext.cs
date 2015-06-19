@@ -9,11 +9,6 @@ namespace VNextDemo
 {
     public class BookContext : DbContext
     {
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
-
         public DbSet<Book> Books
         {
             get;

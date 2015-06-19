@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.Data.Entity;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Http;
-using Microsoft.Framework.DependencyInjection;
-using Swashbuckle.Application;
-using Swashbuckle.Swagger;
 using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.DependencyInjection;
+using Swashbuckle.Swagger;
 
 namespace VNextDemo
 {
@@ -28,14 +22,14 @@ namespace VNextDemo
                 .AddSqlServer()
                 .AddDbContext<BookContext>(options => options
                                 .UseSqlServer(Config.Get("Data:DefaultConnection:ConnectionString")));
-
+            
             services.AddSwagger(s => {
                 s.SwaggerGenerator(c => {
                     c.Schemes = new[] { "http", "https" };
                     c.SingleApiVersion(new Info {
                         Version = "v1",
-                        Title = "Swashbuckle Sample API",
-                        Description = "A sample API for testing Swashbuckle",
+                        Title = "Bookservice Sample API",
+                        Description = "The worlds greatest online book store.",
                         TermsOfService = "Some terms ..."
                     });
                 });
@@ -52,6 +46,8 @@ namespace VNextDemo
 
             app.UseSwagger();
             app.UseSwaggerUi();
+
+            //app.UseWelcomePage();
         }
     }
 }

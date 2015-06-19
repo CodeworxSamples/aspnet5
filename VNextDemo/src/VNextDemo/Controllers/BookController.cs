@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
@@ -25,6 +24,14 @@ namespace VNextDemo.Controllers
             return await this.context.Books.ToListAsync();
         }
 
+        [HttpPost()]
+        public async Task<Book> AddAsync([FromBody] Book book)
+        {
+            this.context.Books.Add(book);
+            await this.context.SaveChangesAsync();
+            return book;
+        }
+
         [HttpGet("{id:guid}")]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> GetByIdAsync(Guid id)
@@ -35,27 +42,7 @@ namespace VNextDemo.Controllers
             else
                 return HttpNotFound();
         }
-
-        [HttpGet("{title:regex(\\w)}")]
-        [ResponseCache(Duration = 0)]
-        public async Task<IActionResult> GetByTitleAsync(string title)
-        {
-            var result = await this.context.Books.FirstOrDefaultAsync(p => p.Title == title);
-
-            if (result != null)
-                return new ObjectResult(result);
-            else
-                return HttpNotFound();
-        }
-
-        [HttpPost()]
-        public async Task<Book> AddAsync([FromBody] Book book)
-        {
-            this.context.Books.Add(book);
-            await this.context.SaveChangesAsync();
-            return book;
-        }
-
+        
         [HttpPut()]
         public async Task<Book> UpdateAsync([FromBody] Book book)
         {
@@ -74,6 +61,18 @@ namespace VNextDemo.Controllers
                 return new ObjectResult(item);
             }
             return HttpNotFound();
+        }
+
+        [HttpGet("{title:regex(\\w)}")]
+        [ResponseCache(Duration = 0)]
+        public async Task<IActionResult> GetByTitleAsync(string title)
+        {
+            var result = await this.context.Books.FirstOrDefaultAsync(p => p.Title == title);
+
+            if (result != null)
+                return new ObjectResult(result);
+            else
+                return HttpNotFound();
         }
     }
 }
